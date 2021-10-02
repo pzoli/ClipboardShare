@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="MissingTranslation">
+
+    <string name="app_name">Clipboard share</string>
+    <string name="scan_target_qrcode">Scan target qrcode</string>
+
+</resources>
