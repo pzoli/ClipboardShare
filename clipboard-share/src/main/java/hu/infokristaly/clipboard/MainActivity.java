@@ -26,10 +26,13 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.ContentType;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -81,8 +84,14 @@ public class MainActivity extends AppCompatActivity {
 
                 List<NameValuePair> params = new ArrayList<NameValuePair>();
                 params.add(new BasicNameValuePair("content", clipboardContent));
-                httpPost.setEntity(new UrlEncodedFormEntity(params,"UTF-8"));
-
+                if (url.endsWith("jsonpost")) {
+                    JSONObject json = new JSONObject();
+                    json.put("content", clipboardContent);
+                    StringEntity requestEntity = new StringEntity(json.toString(),
+                            ContentType.APPLICATION_JSON);
+                } else if (url.endsWith("post")) {
+                    httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
+                }
                 CloseableHttpResponse response = client.execute(httpPost);
                 result = response.getStatusLine().getStatusCode();
                 client.close();
