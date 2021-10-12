@@ -89,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     json.put("content", clipboardContent);
                     StringEntity requestEntity = new StringEntity(json.toString(),
                             ContentType.APPLICATION_JSON);
+                    httpPost.setEntity(requestEntity);
                 } else if (url.endsWith("post")) {
                     httpPost.setEntity(new UrlEncodedFormEntity(params, "UTF-8"));
                 }
